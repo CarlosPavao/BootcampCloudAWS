@@ -11,7 +11,7 @@ const updateItem = async (event) =>{
     const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
     await dynamoDB.update({
-        TableName: "Item",
+        TableName: "ItemTableNew",
         Key: {id},
         UpdateExpression: 'set itemStatus = :itemStatus',
         ExpressionAttributeValues: {
@@ -29,5 +29,5 @@ const updateItem = async (event) =>{
 }
 
 module.exports={
-    handler: updateitem
+    handler: updateItem
 }

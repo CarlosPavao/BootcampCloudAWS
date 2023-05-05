@@ -2,17 +2,17 @@
 
 const AWS = require("aws-sdk")
 
-const fetchitems = async (event) =>{
-    
+const fetchitems = async (event) =>{    
     const dynamoDB = new AWS.DynamoDB.DocumentClient();
-
-    let items
+    
+    let items;
 
     try{
-        const result = await dynamoDB.scan({
+        const results = await dynamoDB.scan({
             TableName: "ItemTableNew"
         }).promise();
-        
+
+        items = results.Items
 
     } catch(error){
         console.log(error);
@@ -21,8 +21,7 @@ const fetchitems = async (event) =>{
     return{
         statusCode:200,
         body:JSON.stringify(items),
-
-    }
+    };
 }
 
 module.exports={

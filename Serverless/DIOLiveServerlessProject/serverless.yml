@@ -33,7 +33,7 @@ functions:
           path: /adicionar
           method: post
   fetchItems:
-    handler: src/fetchItems.handler
+    handler: src/fetchitems.handler
     events:
       - httpApi:
           path: /listar
