@@ -30,25 +30,25 @@ functions:
     handler: src/insertItem.handler
     events:
       - httpApi:
-          path: /item
+          path: /adicionar
           method: post
   fetchItems:
     handler: src/fetchItems.handler
     events:
       - httpApi:
-          path: /list-items
+          path: /listar
           method: get
   fetchItem:
     handler: src/fetchItem.handler
     events:
       - httpApi:
-          path: /item/{id}
+          path: /listar/{id}
           method: get
   updateItem:
     handler: src/updateItem.handler
     events:
       - httpApi:
-          path: /item/{id}
+          path: /atualizar/{id}
           method: put
   
 #Criando a tabela de banco no DYNAMODB
