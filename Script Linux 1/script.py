@@ -4,9 +4,9 @@
 import pexpect
 
 def informacoes_servidor():
-    HM = input('INFORME A HM, EX. HM9890: ')
-    FTP = input('INFORME O FTP: ')
-    DOMINIO = input('DOMÍNIO QUE SERÁ INSTALADO O CERTIFICADO SSL: ')
+    HM = raw_input('INFORME A HM, EX. HM9890: ')
+    FTP = raw_input('INFORME O FTP: ')
+    DOMINIO = raw_input('DOMÍNIO QUE SERÁ INSTALADO O CERTIFICADO SSL: ')
 
     return HM, FTP, DOMINIO
 
@@ -46,7 +46,7 @@ def createFileSSL(DOMINIO):
     certificado = ""
     try:
         while True:
-            linha = input()
+            linha = raw_input()
             certificado += linha + "\n"
     except EOFError:
         pass
@@ -55,7 +55,7 @@ def createFileSSL(DOMINIO):
     key = ""
     try:
         while True:
-            linha = input()
+            linha = raw_input()
             key += linha + "\n"
     except EOFError:
         pass
@@ -64,7 +64,7 @@ def createFileSSL(DOMINIO):
     intermediario = ""
     try:
         while True:
-            linha = input()
+            linha = raw_input()
             intermediario += linha + "\n"
     except EOFError:
         pass
@@ -100,7 +100,7 @@ def main():
         print("2 - BUSCAR LOGS")
         print("3 - AUTENTICAR USUÁRIO")
         print("E - SAIR")
-        escolha = input("Digite o número da opção desejada: ")
+        escolha = raw_input("Digite o número da opção desejada: ")
 
         if escolha == "1":
             while True:
