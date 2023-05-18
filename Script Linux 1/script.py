@@ -111,7 +111,7 @@ def main():
                 print("3 - CORRIGIR CA")
                 print("0 - VOLTAR AO MENU PRINCIPAL")
 
-                escolha_ssl = input("Digite o número da opção desejada: ")
+                escolha_ssl = raw_input("Digite o número da opção desejada: ")
 
                 if escolha_ssl == "0":
                     break
@@ -124,7 +124,7 @@ def main():
                     print("------------------------------------------------")
                     print("AS INFORMAÇÕES DE ACESSO AO SERVIDOR ESTÃO CORRETAS")
                     print()
-                    CORRETA = input("1 - SIM\n2 - NÃO\nOPÇÃO: ")
+                    CORRETA = raw_input("1 - SIM\n2 - NÃO\nOPÇÃO: ")
 
                     if CORRETA == "1":
                         expect_ssh(HM, FTP)
