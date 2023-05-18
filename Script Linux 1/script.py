@@ -11,35 +11,34 @@ def informacoes_servidor():
     return HM, FTP, DOMINIO
 
 def expect_ssh(HM, USER):
+    auth_command = "auth-user"  # Comando auth-user a ser executado
     ssh_command = "ssh -i ~/.ssh/vault -i ~/.ssh/vault-cert.pub " + USER + "@" + HM
-    child = pexpect.spawn(ssh_command)
+
+    # Executa o comando auth-user
+    subprocess.call(auth_command, shell=True)
+
+    # Cria uma instância do cliente SSH
+    client = paramiko.SSHClient()
+    client.load_system_host_keys()
+    client.set_missing_host_key_policy(paramiko.WarningPolicy())
 
     try:
-        index = child.expect(["Are you sure you want to continue connecting", "password:"])
+        # Conecta ao servidor SSH
+        client.connect(HM, username=USER, key_filename="~/.ssh/vault")
 
-        if index == 0:
-            child.sendline("yes")
-            child.expect("password:")
+        # Executa os comandos desejados no servidor SSH
+        commands = [
+            "ls",
+            "pwd",
+            # Adicione mais comandos aqui
+        ]
+        for command in commands:
+            stdin, stdout, stderr = client.exec_command(command)
+            # Processa a saída do comando se necessário
 
-        child.sendline("")  # Insira a senha do usuário, se necessário
-
-        # Realize as operações dentro do servidor SSH aqui
-        # Por exemplo, você pode enviar comandos para o servidor usando child.sendline()
-        # E pode esperar por determinados padrões de saída usando child.expect()
-        # Você pode executar múltiplos comandos e interagir com o servidor SSH conforme necessário
-
-        # Exemplo: Executando o comando "ls" no servidor SSH
-        child.sendline("ls")
-        child.expect(pexpect.EOF)  # Aguarda o final da saída
-
-        # Exemplo: Executando o comando "pwd" no servidor SSH
-        child.sendline("pwd")
-        child.expect(pexpect.EOF)  # Aguarda o final da saída
-
-        # Adicione mais comandos conforme necessário
-
-    except pexpect.exceptions.EOF:
-        print("Falha na conexão SSH")
+    finally:
+        # Fecha a conexão SSH
+        client.close()
         
 def createFileSSL(DOMINIO):
     # Solicita ao usuário que insira as informações para cada arquivo
